@@ -57,7 +57,7 @@ const ApiTable: React.FC = () => {
       <Box
         sx={{
           height: 650,
-          bgcolor: "secondary.dark",
+          bgcolor: "white",
           borderRadius: "5px",
           color: "primary.main",
         }}
