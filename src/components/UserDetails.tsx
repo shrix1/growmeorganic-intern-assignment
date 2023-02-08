@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Container, TextField } from "@mui/material";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import { Container, TextField, Button, Typography } from "@mui/material";
 
-interface inputProps {
+interface InputProps {
   name: String;
   phone: String;
   email: String;
 }
 
 const UserDetails: React.FC = () => {
-  const [input, setInput] = useState<inputProps>({
+  const [input, setInput] = useState<InputProps>({
     name: "",
     phone: "",
     email: "",
@@ -47,15 +45,19 @@ const UserDetails: React.FC = () => {
           alignContent: "center",
           flexDirection: "column",
           height: "48vh",
-          marginTop: "20vh",
+          mt: "20vh",
           width: "350px",
-          borderRadius: "10px",
-          p: 2,
+          borderRadius: "5px",
+          p: 4,
           bgcolor: "white",
-          color: "black",
+          color: "primary.main",
+          fontWeight: "900",
         }}
       >
-        <Typography variant="h5" sx={{ textAlign: "center" }}>
+        <Typography
+          variant="h5"
+          sx={{ textAlign: "center", fontWeight: "900" }}
+        >
           GrowMeOrganic <br />
           <Typography> Please fill the below details</Typography>
         </Typography>
@@ -94,6 +96,11 @@ const UserDetails: React.FC = () => {
               input.name === "" || input.phone === "" || input.email === ""
             }
             title="Fill the above detail to navigate to next page"
+            sx={{
+              bgcolor: "secondary.main",
+              fontWeight: "900",
+              fontSize: "18px",
+            }}
           >
             Submit
           </Button>
