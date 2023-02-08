@@ -23,6 +23,7 @@ const UserDetails: React.FC = () => {
 
   const handleSubmit = () => {
     //route to second page
+    location.href = "/apipage";
   };
 
   useEffect(() => {
@@ -65,6 +66,7 @@ const UserDetails: React.FC = () => {
           name="name"
           value={input.name}
           onChange={handleInputChange}
+          required
         />
         <TextField
           label="PhoneNo"
@@ -73,6 +75,7 @@ const UserDetails: React.FC = () => {
           name="phone"
           value={input.phone}
           onChange={handleInputChange}
+          required
         />
         <TextField
           label="email"
@@ -80,11 +83,21 @@ const UserDetails: React.FC = () => {
           name="email"
           value={input.email}
           onChange={handleInputChange}
+          required
         />
 
-        <Button variant="contained" onClick={handleSubmit}>
-          Submit
-        </Button>
+        {
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            disabled={
+              input.name === "" || input.phone === "" || input.email === ""
+            }
+            title="Fill the above detail to navigate to next page"
+          >
+            Submit
+          </Button>
+        }
       </Container>
     </>
   );
