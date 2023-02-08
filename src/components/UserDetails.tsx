@@ -20,7 +20,6 @@ const UserDetails: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    //route to second page
     location.href = "/apipage";
   };
 
