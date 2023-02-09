@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
+import { height } from "@mui/system";
 
 interface Data {
   userId: number;
@@ -19,6 +20,7 @@ const columns: GridColDef[] = [
     field: "id",
     headerName: "ID",
     width: 50,
+    valueGetter: (params) => params.row.id * 2, //interview change
   },
   {
     field: "title",
@@ -28,53 +30,58 @@ const columns: GridColDef[] = [
   {
     field: "body",
     headerName: "BODY",
-    width: 500,
+    width: 900,
   },
 ];
 
 const ApiTable: React.FC = () => {
   const [data, setData] = useState<Data[]>([]);
 
+  const apiCall = async () => {
+    //async interview change
+    const fetching = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const dataFromApi = await fetching.json();
+    setData(dataFromApi);
+  };
+
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((res) => res.json())
-      .then((result) => setData(result));
+    apiCall();
   }, []);
 
   return (
-    <Container>
-      <Typography
-        sx={{ color: "white", textAlign: "center", p: 8 }}
-        variant="h3"
-      >
-        Api fetched and shown in MUI data-Grid
-        <br />
-        <Typography sx={{ color: "secondary.main" }}>
-          jsonplaceholder/posts api used
-        </Typography>
-      </Typography>
-
-      <Box
+    <>
+      <Container
         sx={{
-          height: 650,
-          bgcolor: "white",
-          borderRadius: "5px",
-          color: "primary.main",
+          display: "flex ",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
         }}
       >
-        <DataGrid
-          //data => api data in row
-          rows={data}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[5]}
-          checkboxSelection={false}
-          disableSelectionOnClick
-          experimentalFeatures={{ newEditingApi: true }}
-          sx={{ color: "black", fontWeight: "1000" }}
-        />
-      </Box>
-    </Container>
+        <Typography>Api Fetch here</Typography>
+        <Box
+          sx={{
+            height: 650,
+            bgcolor: "white",
+            borderRadius: "5px",
+            color: "primary.main",
+            width: 1500,
+          }}
+        >
+          <DataGrid
+            //data => api data in row
+            rows={data}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[5]}
+            checkboxSelection={false}
+            disableSelectionOnClick
+            experimentalFeatures={{ newEditingApi: true }}
+            sx={{ color: "black", fontWeight: "1000" }}
+          />
+        </Box>
+      </Container>
+    </>
   );
 };
 
